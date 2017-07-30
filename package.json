@@ -1,5 +1,6 @@
 {
   "name": "items-inc",
+  "description": "An item incremental.",
   "version": "0.0.1",
   "author": "Kyle Kemp <kyle@seiyria.com>",
   "homepage": "https://seiyria.com/items-inc",
@@ -12,7 +13,8 @@
     "ionic:serve": "ionic-app-scripts serve",
     "data:format": "node ./setup/data-format",
     "data:download": "node ./setup/data-download",
-    "postinstall": "npm run data:download && npm run data:format"
+    "data:font": "webfont -f itemicons -t css -d src/assets/fonts src/assets/raw/*.svg",
+    "postinstall": "npm run data:download && npm run data:format && npm run data:font"
   },
   "dependencies": {
     "@angular/common": "4.1.3",
@@ -29,6 +31,7 @@
     "@ionic/storage": "2.0.1",
     "ionic-angular": "3.6.0",
     "ionicons": "3.0.0",
+    "ngx-webstorage": "^1.8.0",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.12"
@@ -38,7 +41,7 @@
     "@ionic/cli-plugin-ionic-angular": "1.4.0",
     "download-github-repo": "^0.1.3",
     "ionic": "3.6.0",
-    "typescript": "2.3.4"
-  },
-  "description": "An item incremental."
+    "typescript": "2.3.4",
+    "webfont": "^7.1.4"
+  }
 }

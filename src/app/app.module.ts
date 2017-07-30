@@ -7,12 +7,17 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { ModuleModule } from '../shared/module.module';
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
   declarations: [
     MyApp
   ],
   imports: [
     BrowserModule,
+    ModuleModule,
+    SharedModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],

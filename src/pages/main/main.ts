@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { GameStateService } from '../../shared/gamestate.service';
 
 @IonicPage()
 @Component({
@@ -8,11 +9,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MainPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MainPage');
-  }
+  constructor(
+    public gameState: GameStateService,
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {}
 
 }

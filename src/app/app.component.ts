@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { GameStateService } from '../shared/gamestate.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -11,17 +12,22 @@ export class MyApp {
 
   rootPage: any = 'MainPage';
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: string, icon: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public gameState: GameStateService
+  ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Tinker',    component: 'MainPage' },
-      { title: 'Storage',   component: 'StoragePage' },
-      { title: 'Shop',      component: 'ShopPage' },
-      { title: 'Customers', component: 'CustomersPage' }
+      { title: 'Tinker',    component: 'MainPage',      icon: 'tinker' },
+      { title: 'Storage',   component: 'StoragePage',   icon: 'storage' },
+      { title: 'Shop',      component: 'ShopPage',      icon: 'shop' },
+      { title: 'Customers', component: 'CustomersPage', icon: 'customers' }
     ];
 
   }
