@@ -11,10 +11,11 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
+    "data:init": "node ./setup/data-init",
     "data:format": "node ./setup/data-format",
     "data:download": "node ./setup/data-download",
     "data:font": "webfont -f itemicons -t css -d src/assets/fonts src/assets/raw/*.svg",
-    "postinstall": "npm run data:download && npm run data:format && npm run data:font"
+    "postinstall": "npm run data:init && npm run data:download && npm run data:format && npm run data:font"
   },
   "dependencies": {
     "@angular/common": "4.1.3",

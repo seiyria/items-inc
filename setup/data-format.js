@@ -103,5 +103,3 @@ _.each(['items'], folder => {
     fs.writeFileSync(`src/assets/items/${type}.json`, JSON.stringify({ data: ObjectAssets[type] }, null, 4));
   });
 });
-
-
