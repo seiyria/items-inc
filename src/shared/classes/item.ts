@@ -100,9 +100,19 @@ export class Item {
   constructor(opts?) {
     this.id = uuid();
     this.createdAt = Date.now();
-    this.baseScore = this.score;
-    if(this.baseScore <= 0) this.baseScore = 1;
+
     _.extend(this, Item.defaults, opts);
+
+    const myScore = this.score;
+
+    if(!this.baseScore) {
+      this.baseScore = myScore;
+    }
+
+    this.currentScore = myScore;
+
+    if(this.baseScore <= 0) this.baseScore = 1;
+    if(this.currentScore <= 0) this.currentScore = 1;
   }
 
   get itemClass(): ItemClass {
@@ -110,7 +120,6 @@ export class Item {
     if(_.includes(this.baseName.toLowerCase(), 'idle')
     || _.includes(this.baseName.toLowerCase(), 'idling')) return 'idle';
     if(this.score >= 15000)                               return 'godly';
-    if(this.score >= 100000)                              return 'goatly';
 
     return 'basic';
   }
@@ -127,12 +136,14 @@ export class Item {
       ret += this[attr] * mult;
     });
     ret = ~~ret;
-    this.currentScore = ret;
     return ret;
   }
 
   toJSON() {
-    return JSON.stringify(this, Object.keys(this.constructor.prototype));
+    return _.omitBy(this, (val, key) => {
+      const descriptor = Object.getOwnPropertyDescriptor(this, key);
+      return (!descriptor || !descriptor.writable);
+    });
   }
 
 }

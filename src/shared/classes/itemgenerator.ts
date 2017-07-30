@@ -44,10 +44,10 @@ export class ItemGenerator {
       charm:    ['Ancient Bracelet', 'Family Photo', 'Third Place Bowling Trophy', 'Love Letter']
     };
 
-    const r = () => _.random({ min: -2, max: 7 });
+    const r = () => _.random(-2, 7);
 
     const itemType = _.sample(ItemTypes);
-    const itemName = _.sample(itemNames[itemType]);
+    const itemName = _.sample(itemNames[itemType]).toLowerCase();
 
     const item = new Item({
       baseName: itemName,

@@ -1,11 +1,11 @@
 
-import * as _ from 'lodash';
 import * as packageJson from '../../package.json';
 
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 
 import { GameState } from './classes/gamestate';
+import { Item } from './classes/item';
 
 const GAMESTATE_KEY = 'gamestate';
 
@@ -15,7 +15,7 @@ export class GameStateService {
   private state: GameState;
 
   public get data() {
-    return _.cloneDeep(this.state);
+    return this.state;
   }
 
   constructor(private localStorage: LocalStorageService) {
@@ -34,12 +34,12 @@ export class GameStateService {
 
   private createGameFromState(state?: GameState) {
     this.state = new GameState(state);
-    this.state.version = (<any>packageJson).version;
+    this.state.changeVersion((<any>packageJson).version);
   }
 
   initGame() {
     this.createGameFromState();
-    this.state.gold = 500;
+    this.state.gainGold(500);
   }
 
   loadGame(state: GameState) {
@@ -50,7 +50,14 @@ export class GameStateService {
     this.localStorage.store(GAMESTATE_KEY, this.state);
   }
 
-  generateFreeTinkerItem() {
+  // tinker functions
+  generateTinkerItem(tier = 0) {
+    this.data.generateTinkerItem(tier);
+    this.saveGame();
+  }
 
+  salvageTinkerItem(item: Item) {
+    this.data.salvageTinkerItem(item);
+    this.saveGame();
   }
 }

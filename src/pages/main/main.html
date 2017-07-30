@@ -7,7 +7,35 @@
 
 </ion-header>
 
+<ion-content>
+  <ion-toolbar color="primary">
+    <ion-title>Actions</ion-title>
+  </ion-toolbar>
 
-<ion-content padding>
+  <ion-row padding>
+    <ion-col *ngFor="let tier of gameState.data.tinkerTiers; let i = index">
+      <button ion-button
+              color="primary"
+              [disabled]="!gameState.data.canTinker"
+              (click)="gameState.generateTinkerItem(i)">Create Item ({{ tier.name }})</button>
+    </ion-col>
+  </ion-row>
+
+  <ion-toolbar color="primary">
+    <ion-title>Tinker Items ({{ gameState.data.tinkerItems.length }} / {{ gameState.data.tinkerLimit }})</ion-title>
+  </ion-toolbar>
+
+  <ion-row padding *ngIf="gameState.data.tinkerItems.length === 0" class="blank-slate">
+    <ion-col>You have no items.</ion-col>
+  </ion-row>
+
+  <ion-row padding *ngFor="let item of gameState.data.tinkerItems">
+    <ion-col col-10>
+      <item [data]="item"></item>
+    </ion-col>
+    <ion-col col-2>
+      <button ion-button color="secondary" (click)="gameState.salvageTinkerItem(item)">Salvage</button>
+    </ion-col>
+  </ion-row>
 
 </ion-content>

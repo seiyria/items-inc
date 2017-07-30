@@ -39,7 +39,28 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  gold:       #D4AF37
+  gold:       #d4af37,
+
+  itemclass-basic: (
+    base: gray,
+    contrast: white
+  ),
+
+  itemclass-pro: (
+    base: blue,
+    contrast: white
+  ),
+
+  itemclass-idle: (
+    base: purple,
+    contrast: white
+  ),
+
+  itemclass-godly: (
+    base: black,
+    contrast: white
+  )
+
 );
 
 

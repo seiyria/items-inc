@@ -9,6 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ModuleModule } from '../shared/module.module';
 import { SharedModule } from '../shared/shared.module';
+import { ComponentsModule } from '../shared/components.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     BrowserModule,
     ModuleModule,
-    SharedModule,
+    SharedModule.forRoot(),
+    ComponentsModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
