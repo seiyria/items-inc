@@ -7,7 +7,7 @@ import { Item } from './classes/item';
   <ion-card>
     <ion-card-header>
       <ion-row justify-content-between>
-        <ion-col col-10 col-sm-9 col-xs-8>
+        <ion-col col-md-10 col-sm-8>
           <strong>{{ data.name }}</strong>
           <ion-note>Value: {{ data.currentScore }}</ion-note>
         </ion-col>

@@ -23,9 +23,19 @@ const ItemTypes = [
 ];
 
 const AllAssets = {
-  body, charm, feet, finger, hands, head,
-  legs, mainhand, neck, offhand,
-  prefix, prefixSpecial, suffix
+  body:           (<any>body).data,
+  charm:          (<any>charm).data,
+  feet:           (<any>feet).data,
+  finger:         (<any>finger).data,
+  hands:          (<any>hands).data,
+  head:           (<any>head).data,
+  legs:           (<any>legs).data,
+  mainhand:       (<any>mainhand).data,
+  neck:           (<any>neck).data,
+  offhand:        (<any>offhand).data,
+  prefix:         (<any>prefix).data,
+  prefixSpecial:  (<any>prefixSpecial).data,
+  suffix:         (<any>suffix).data
 };
 
 export class ItemGenerator {
@@ -58,13 +68,80 @@ export class ItemGenerator {
     return item;
   }
 
-  static generateItem({ type, bonus }): Item {
-
+  static generateItem({ type, bonus, scoreCap }): Item {
     if(!type) type = _.sample(ItemTypes);
-
-    const baseItem = _.sample(AllAssets[type]);
-
-    const item = new Item(baseItem);
+    const item = this.generateItemInRange({ type, bonus, scoreCap });
     return item;
+  }
+
+  private static generateItemInRange({ type, bonus, scoreCap }): Item {
+    let item = new Item();
+
+    while(item.score < scoreCap / 10 || item.score > scoreCap) {
+      const baseItem = _.sample(AllAssets[type]);
+      baseItem.baseName = baseItem.name;
+      delete baseItem.name;
+      item = new Item(baseItem);
+      this.addPropertiesToItem(item, bonus * 10);
+    }
+
+    return item;
+  }
+
+  static addPropertiesToItem(item, bonus = 0) {
+
+    let prefixBonus = 0;
+    if(bonus >= 10) prefixBonus++;
+    if(bonus >= 20) prefixBonus++;
+
+    if(_.random(0, 3) - prefixBonus <= 0) {
+      this.mergePropInto(item, _.sample(AllAssets.prefix), 'prefix');
+
+      let iter = 1;
+      const seti = () => _.random(0, Math.pow(15, iter));
+      let i = seti();
+      while(i < 1 + bonus) {
+        this.mergePropInto(item, _.sample(AllAssets.prefix), 'prefix');
+        iter++;
+        i = seti();
+      }
+    }
+
+    if(_.random(0, 100) - (prefixBonus * 5) <= 0) {
+      this.mergePropInto(item, _.sample(AllAssets.prefixSpecial), 'prefix');
+    }
+
+    if(_.random(0, 85) <= 1 + bonus) {
+      this.mergePropInto(item, _.sample(AllAssets.suffix), 'suffix');
+    }
+  }
+
+  static mergePropInto(baseItem, prop, propType) {
+    if(!prop) return;
+
+    prop.baseName = prop.name;
+
+    if(propType === 'suffix') {
+      baseItem.baseName = `${baseItem.baseName} of the ${prop.baseName}`;
+    } else {
+      baseItem.baseName = `${prop.baseName} ${baseItem.baseName}`;
+    }
+
+    _.each(prop, (val, attr) => {
+      if(!_.isNumber(val) || _.isEmpty(attr)) return;
+
+      if(baseItem[attr]) {
+        if (_.includes(attr, 'Req')) {
+          baseItem[attr] = Math.max(baseItem[attr], prop[attr]);
+        } else {
+          baseItem[attr] += prop[attr];
+        }
+      } else {
+        baseItem[attr] = _.isNaN(prop[attr]) ? true : prop[attr];
+      }
+
+    });
+
+    baseItem.baseName = _.trim(baseItem.baseName);
   }
 }

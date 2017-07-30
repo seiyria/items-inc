@@ -16,7 +16,7 @@ export class Item {
   baseScore: number;
   currentScore: number;
 
-  baseName: string;
+  baseName = '';
   type: ItemType;
 
   str = 0;

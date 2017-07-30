@@ -1,7 +1,10 @@
 
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="brand">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Items, Inc - Tinker</ion-title>
   </ion-navbar>
 
@@ -13,13 +16,34 @@
   </ion-toolbar>
 
   <ion-row padding>
-    <ion-col *ngFor="let tier of gameState.data.tinkerTiers; let i = index">
+    <ion-col col-md-4 col-sm-12 *ngFor="let tier of gameState.data.tinkerTiers; let i = index">
       <button ion-button
-              color="primary"
+              color="secondary"
+              *ngIf="gameState.data.hasGold(tier.cost)"
               [disabled]="!gameState.data.canTinker"
-              (click)="gameState.generateTinkerItem(i)">Create Item ({{ tier.name }})</button>
+              (click)="gameState.generateTinkerItem(i)">Create {{ tier.name }} Item ({{ tier.cost | number }} Gold)</button>
     </ion-col>
   </ion-row>
+
+  <ion-toolbar color="primary">
+    <ion-title>Tinker Upgrades</ion-title>
+  </ion-toolbar>
+
+  <ion-row padding *ngIf="gameState.data.buyableTinkerUpgrades.length === 0" class="blank-slate">
+    <ion-col>You have no buyable upgrades.</ion-col>
+  </ion-row>
+
+  <ion-list>
+    <ion-item *ngFor="let upgrade of gameState.data.buyableTinkerUpgrades">
+      <h2>{{ upgrade.name }} (Tier {{ upgrade.tier }})</h2>
+      <p>{{ upgrade.desc }}</p>
+      <button ion-button
+              item-end
+              color="secondary"
+              (click)="gameState.tinkerUpgrade(upgrade)"
+              [disabled]="!gameState.data.hasGold(upgrade.cost)">Buy For {{ upgrade.cost | number }} gold</button>
+    </ion-item>
+  </ion-list>
 
   <ion-toolbar color="primary">
     <ion-title>Tinker Items ({{ gameState.data.tinkerItems.length }} / {{ gameState.data.tinkerLimit }})</ion-title>

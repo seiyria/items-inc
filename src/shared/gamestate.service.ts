@@ -60,4 +60,9 @@ export class GameStateService {
     this.data.salvageTinkerItem(item);
     this.saveGame();
   }
+
+  tinkerUpgrade(upgrade) {
+    this.data.tinkerUpgrade(upgrade);
+    this.saveGame();
+  }
 }
