@@ -15,7 +15,7 @@
           {{ gameState.data.currentGold | number }} Gold
         </ion-item>
 
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [class.hidden]="!p.shouldShow()">
           <game-icon size="lg" [name]="p.icon"></game-icon> {{ p.title }}
         </button>
       </ion-list>

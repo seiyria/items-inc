@@ -12,7 +12,7 @@ export class MyApp {
 
   rootPage: any = 'MainPage';
 
-  pages: Array<{title: string, component: string, icon: string}>;
+  pages: Array<{title: string, component: string, icon: string, shouldShow: any}>;
 
   constructor(
     public platform: Platform,
@@ -24,10 +24,14 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Tinker',    component: 'MainPage',      icon: 'symbol-tinker' },
-      { title: 'Storage',   component: 'StoragePage',   icon: 'symbol-storage' },
-      { title: 'Shop',      component: 'ShopPage',      icon: 'symbol-shop' },
-      { title: 'Customers', component: 'CustomersPage', icon: 'symbol-customers' }
+      { title: 'Tinker',    component: 'MainPage',      icon: 'symbol-tinker',
+        shouldShow: () => true },
+      { title: 'Storage',   component: 'StoragePage',   icon: 'symbol-storage',
+        shouldShow: () => this.gameState.data.hasUpgrade('Storage') },
+      { title: 'Item Shop', component: 'ShopPage',      icon: 'symbol-shop',
+        shouldShow: () => this.gameState.data.hasUpgrade('Item Shop') },
+      { title: 'Customers', component: 'CustomersPage', icon: 'symbol-customers',
+        shouldShow: () => this.gameState.data.hasUpgrade('Customers') }
     ];
 
   }
