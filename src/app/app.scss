@@ -21,4 +21,8 @@
   padding: 0;
   height: 138px;
   text-align: center;
+
+  &.gold-indicator {
+    background-color: color($colors, gold);
+  }
 }

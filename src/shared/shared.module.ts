@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 
 import { GameStateService } from './gamestate.service';
 import { GameIconComponent } from './gameicon.component';
+import { ItemComponent } from './item.component';
 
 @NgModule({
   declarations: [
-    GameIconComponent
+    GameIconComponent,
+    ItemComponent
   ],
   exports: [
-    GameIconComponent
+    GameIconComponent,
+    ItemComponent
   ],
   providers: [
     GameStateService

@@ -9,10 +9,10 @@
     <ion-content>
       <ion-list>
 
-        <ion-item class="state-indicator">
+        <ion-item class="state-indicator gold-indicator">
           <game-icon size="5x" name="gold"></game-icon>
           <br>
-          {{ gameState.data.gold | number }}
+          {{ gameState.data.gold | number }} Gold
         </ion-item>
 
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">

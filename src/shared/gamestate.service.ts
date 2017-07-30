@@ -5,22 +5,9 @@ import * as packageJson from '../../package.json';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 
+import { GameState } from './classes/gamestate';
+
 const GAMESTATE_KEY = 'gamestate';
-
-class GameState {
-  gold: number;
-  version: string;
-
-  constructor(opts?) {
-    _.extend(this, opts);
-    this.migrateValues();
-  }
-
-  migrateValues() {
-    if(this.gold <= 0) this.gold = 0;
-    if(!this.version) this.version = (<any>packageJson).version;
-  }
-}
 
 @Injectable()
 export class GameStateService {
@@ -45,17 +32,25 @@ export class GameStateService {
     }
   }
 
+  private createGameFromState(state?: GameState) {
+    this.state = new GameState(state);
+    this.state.version = (<any>packageJson).version;
+  }
+
   initGame() {
-    this.state = new GameState();
+    this.createGameFromState();
     this.state.gold = 500;
   }
 
   loadGame(state: GameState) {
-    this.state = new GameState(state);
+    this.createGameFromState(state);
   }
 
   saveGame() {
     this.localStorage.store(GAMESTATE_KEY, this.state);
-    console.log(this.state);
+  }
+
+  generateFreeTinkerItem() {
+
   }
 }
