@@ -34,7 +34,7 @@
   </ion-row>
 
   <ion-list>
-    <ion-item *ngFor="let upgrade of gameState.data.buyableTinkerUpgrades">
+    <ion-item text-wrap *ngFor="let upgrade of gameState.data.buyableTinkerUpgrades">
       <h2>{{ upgrade.name }} (Tier {{ upgrade.tier }})</h2>
       <p>{{ upgrade.desc }}</p>
       <button ion-button
