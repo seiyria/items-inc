@@ -15,6 +15,7 @@ import { Item } from './classes/item';
       <ion-row justify-content-between>
         <ion-col col-md-10 col-sm-8 class="header">
           <strong>{{ data.name }}</strong>
+          &nbsp;
           <ion-note>Value: {{ data.currentScore }}</ion-note>
         </ion-col>
         <ion-col text-right>

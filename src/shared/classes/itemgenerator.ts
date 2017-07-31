@@ -76,12 +76,14 @@ export class ItemGenerator {
 
   private static generateItemInRange({ type, bonus, scoreCap }): Item {
     let item = new Item();
+    let score = item.score;
 
-    while(item.score < scoreCap / 10 || item.score > scoreCap) {
+    while(score < scoreCap / 10 || score > scoreCap) {
       const baseItem = _.sample(AllAssets[type]);
       baseItem.baseName = baseItem.name;
       delete baseItem.name;
       item = new Item(baseItem);
+      score = item.score;
       this.addPropertiesToItem(item, bonus * 10);
     }
 
